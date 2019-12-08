@@ -80,12 +80,12 @@
 
     var cubeVertices = [
       // x, y, z                r, g, b
-      // ...sideB,   0.0, 1.0,   ...cubeColor,  // Depan (BAD-BDC) Merah
-      // ...sideA,   0.0, 0.0,   ...cubeColor,
-      // ...sideD,   1.0, 0.0,   ...cubeColor,
-      // ...sideB,   0.0, 1.0,   ...cubeColor,
-      // ...sideD,   1.0, 0.0,   ...cubeColor,
-      // ...sideC,   1.0, 1.0,   ...cubeColor,
+        // ...sideB,   0.0, 1.0,   ...cubeColor,  // Depan (BAD-BDC) Merah
+        // ...sideA,   0.0, 0.0,   ...cubeColor,
+        // ...sideD,   1.0, 0.0,   ...cubeColor,
+        // ...sideB,   0.0, 1.0,   ...cubeColor,
+        // ...sideD,   1.0, 0.0,   ...cubeColor,
+        // ...sideC,   1.0, 1.0,   ...cubeColor,
 
       ...sideC,   0.0, 1.0,   ...cubeColor, // Kanan (CDH-CHG) Hijau
       ...sideD,   0.0, 0.0,   ...cubeColor,
@@ -174,7 +174,7 @@
     var zAxis = 2;
     var axis = zAxis;
     var scale = 0.35, scaler = -0.0118;
-    var x = 0.0118, y = 0.0118, z = 0.0118;
+    var x = 0.00118, y = 0.001, z = 0.005;
     var transX = 0.0, transY = 0.0, transZ = 0.0;
     var rotName = 0;
     var rotValue = 0.0118;
@@ -191,26 +191,26 @@
     var mmLoc = gl.getUniformLocation(program, 'model');
     var vmLoc = gl.getUniformLocation(program, 'view');
     var pmLoc = gl.getUniformLocation(program, 'projection');
+
+    // Uniform untuk definisi cahaya
     var lightColorLoc = gl.getUniformLocation(program, 'lightColor');
     var lightPositionLoc = gl.getUniformLocation(program, 'lightPosition');
     var ambientColorLoc = gl.getUniformLocation(program, 'ambientColor');
     var nmLoc = gl.getUniformLocation(program, 'normalMatrix');
-    var mm = glMatrix.mat4.create();
+    
     var vm = glMatrix.mat4.create();
     var pm = glMatrix.mat4.create();
     var mmName = glMatrix.mat4.create();
-    var lightColor = [1.0, 1.0, 1.0];
-    var lightPosition = [0.0, 0.0, 0.0];
+    var lightColor = [0.5, 0.5, 0.5];
+    var lightPosition = [1., 2., 1.7];
     var ambientColor = glMatrix.vec3.fromValues(0.17, 0.0, 0.118);
 
     gl.uniform3fv(lightColorLoc, lightColor);
     gl.uniform3fv(lightPositionLoc, lightPosition);
     gl.uniform3fv(ambientColorLoc, ambientColor);
 
-    glMatrix.mat4.translate(mm, mm, [0.0, 0.0, -2.5]);
-
     glMatrix.mat4.lookAt(vm,
-      glMatrix.vec3.fromValues(0.0, 0.0, -0.75),    // posisi kamera
+      glMatrix.vec3.fromValues(0.0, 0.0, 0),    // posisi kamera
       glMatrix.vec3.fromValues(0.0, 0.0, -2.0),  // titik yang dilihat; pusat kubus akan kita pindah ke z=-2
       glMatrix.vec3.fromValues(0.0, 1.0, 0.0)   // arah atas dari kamera
     );
@@ -278,24 +278,22 @@
 
     function render() {
       // theta[axis] += glMatrix.glMatrix.toRadian(0.5);
-      // if(axis == xAxis) glMatrix.mat4.rotateX(mm, mm, thetaValue);
-      // if(axis == yAxis) glMatrix.mat4.rotateY(mm, mm, thetaValue);
-      // if(axis == zAxis) glMatrix.mat4.rotateZ(mm, mm, thetaValue);
-      // gl.uniformMatrix4fv(mmLoc, false, mm);
+      var mm = glMatrix.mat4.create();
+      glMatrix.mat4.translate(mm, mm, [0.0, 0.0, -2.0]);
+      glMatrix.mat4.rotateX(mm, mm, theta[xAxis]);
+      glMatrix.mat4.rotateY(mm, mm, theta[yAxis]);
+      // glMatrix.mat4.rotateZ(mm, mm, thetaValue);
+      gl.uniformMatrix4fv(mmLoc, false, mm);
 
       // Perhitungan modelMatrix untuk vektor normal
       var nm = glMatrix.mat3.create();
       glMatrix.mat3.normalFromMat4(nm, mm);
       gl.uniformMatrix3fv(nmLoc, false, nm);
 
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Bersihkan buffer canvas
+      // Bersihkan buffer canvas
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); 
 
       gl.drawArrays(gl.TRIANGLES, 0, 30);
-
-      // Perhitungan modelMatrix untuk vektor normal
-      var nm = glMatrix.mat3.create();
-      glMatrix.mat3.normalFromMat4(nm, mm);
-      gl.uniformMatrix3fv(nmLoc, false, nm);
 
       var currentPosName = [];
       var currentPosCube = [];
@@ -315,13 +313,13 @@
       glMatrix.mat4.copy(mmName, mm);
       glMatrix.mat4.translate(mm, mm, [transX, transY, transZ]);
       glMatrix.mat4.rotateY(mm, mm, rotName);
-      glMatrix.mat4.scale(mm, mm, [scale, scale, scale]);
-      
+      glMatrix.mat4.scale(mm, mm, [scale, scale, scale]);      
       gl.uniformMatrix4fv(mmLoc, false, mm);
-      glMatrix.mat3.normalFromMat4(nm, mm);
-      gl.uniformMatrix3fv(nmLoc, false, nm);
-      glMatrix.vec3.transformMat4(lightPosition, [0.0, 0.0, 0.0], mm);
-      gl.uniform3fv(lightPositionLoc, lightPosition);
+
+      // glMatrix.mat3.normalFromMat4(nm, mm);
+      // gl.uniformMatrix3fv(nmLoc, false, nm);
+      // glMatrix.vec3.transformMat4(lightPosition, [0.0, 0.0, 0.0], mm);
+      // gl.uniform3fv(lightPositionLoc, lightPosition);
       gl.drawArrays(gl.TRIANGLE_STRIP, 30, 12);
 
       for(var v = 0;v < namePoints.length; v++) {
@@ -376,8 +374,8 @@
         var factor = 10 / canvas.height;
         var dx = factor * (x - lastX);
         var dy = factor * (y - lastY);
-        glMatrix.mat4.rotateY(mm, mm, dx)
-        glMatrix.mat4.rotateX(mm, mm, dy)
+        theta[yAxis] += dx;
+        theta[xAxis] += dy;
       }
       lastX = x;
       lastY = y;
@@ -387,10 +385,6 @@
     document.addEventListener('mouseup', onMouseUp);
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('keypress', onKeyPress);
-
-    // Bersihkan layar jadi hitam
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.enable(gl.DEPTH_TEST);
 
     // Uniform untuk tekstur
     var sampler0Loc = gl.getUniformLocation(program, 'sampler0');
@@ -435,6 +429,9 @@
       });
     }
 
-    render();
+    // Bersihkan layar jadi hitam
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.enable(gl.DEPTH_TEST);
+
   }
 })();

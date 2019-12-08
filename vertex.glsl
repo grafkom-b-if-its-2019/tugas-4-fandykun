@@ -8,9 +8,9 @@ varying vec2 fTexCoord;
 varying vec3 fPosition;
 varying vec3 fNormal;
 
-uniform mat4 model;
 uniform mat4 projection;
 uniform mat4 view;
+uniform mat4 model;
 
 uniform mat3 normalMatrix;
 
@@ -21,5 +21,5 @@ void main() {
   fTexCoord = vTexCoord;
   fPosition = vec3(model * vec4(vPosition, 1.0));
   fNormal = normalMatrix * vNormal;
-  
 }
+ 
