@@ -17,7 +17,7 @@ void main() {
   vec3 lightDirection = normalize(lightPosition - fPosition);
   float lightIntensity = max(dot(fNormal, lightDirection), 0.0);
 
-  float specularPower = 80.0;
+  float specularPower = 25.0;
   float specular = 0.0;
 
   if(lightIntensity > 0.0) {

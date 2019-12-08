@@ -12,7 +12,7 @@
     var program = glUtils.createProgram(gl, vertexShader, fragmentShader);
     gl.useProgram(program);
 
-    var nameNormal = [1.0, 0.0, 0.0];
+    var nameNormal = [0.0, 0.0, 0.0];
     var cubeColor = [1.0, 0.0, 1.0];
 
     var namePoints = [
@@ -30,18 +30,18 @@
 
     var uvDummy = [0.0, 0.0];
     var nameVertices = [
-      0.55, 0.4, 0, ...uvDummy, ...nameNormal,
-      0.47, 0.28, 0, ...uvDummy, ...nameNormal,
-      0.1, 0.4, 0, ...uvDummy, ...nameNormal,
-      0.2, 0.28, 0, ...uvDummy, ...nameNormal,
-      0.1, -0.4, 0, ...uvDummy, ...nameNormal,
-      0.2, -0.4, 0, ...uvDummy, ...nameNormal,
-      0.2, -0.4, 0, ...uvDummy, ...nameNormal,
-      0.2, 0.1, 0, ...uvDummy, ...nameNormal,
-      0.2, 0.1, 0, ...uvDummy, ...nameNormal,
-      0.55, 0.1, 0, ...uvDummy, ...nameNormal,
-      0.2, -0.02, 0, ...uvDummy, ...nameNormal,
-      0.55, -0.02, 0, ...uvDummy, ...nameNormal,
+      0.55, 0.4, 0, ...nameNormal,
+      0.47, 0.28, 0, ...nameNormal,
+      0.1, 0.4, 0, ...nameNormal,
+      0.2, 0.28, 0, ...nameNormal,
+      0.1, -0.4, 0, ...nameNormal,
+      0.2, -0.4, 0, ...nameNormal,
+      0.2, -0.4, 0, ...nameNormal,
+      0.2, 0.1, 0, ...nameNormal,
+      0.2, 0.1, 0, ...nameNormal,
+      0.55, 0.1, 0, ...nameNormal,
+      0.2, -0.02, 0, ...nameNormal,
+      0.55, -0.02, 0, ...nameNormal,
     ]
 
     // Definisi verteks dan buffer
@@ -76,8 +76,6 @@
       sideH
     ]
 
-    console.log(cubePoints);
-
     var normalZ1 = [0.0, 0.0, 1.0];
     var normalZ2 = [0.0, 0.0, -1.0];
     var normalY1 = [0.0, 1.0, 0.0];
@@ -94,40 +92,40 @@
       //   ...sideD,   1.0, 0.0,   ...normalZ1,
       //   ...sideC,   1.0, 1.0,   ...normalZ1,
 
-      ...sideC,   0.0, 0.5,   ...normalX1, // Kanan (CDH-CHG) Hijau
-      ...sideD,   0.0, 0.0,   ...normalX1,
-      ...sideH,   0.25, 0.0,   ...normalX1,
-      ...sideC,   0.0, 0.5,   ...normalX1,
-      ...sideH,   0.25, 0.0,   ...normalX1,
-      ...sideG,   0.25, 0.5,   ...normalX1,
+      ...sideC,   /*0.0, 0.5, */  ...normalX2, // Kanan (CDH-CHG) Hijau
+      ...sideD,   /*0.0, 0.0, */  ...normalX2,
+      ...sideH,   /*0.25, 0.0,*/   ...normalX2,
+      ...sideC,   /*0.0, 0.5, */  ...normalX2,
+      ...sideH,   /*0.25, 0.0,*/   ...normalX2,
+      ...sideG,   /*0.25, 0.5,*/   ...normalX2,
 
-      ...sideD,   0.25, 0.5,   ...normalY2, // Bawah (DAE-DEH) Biru
-      ...sideA,   0.25, 0.0,   ...normalY2,
-      ...sideE,   0.5, 0.0,   ...normalY2,
-      ...sideD,   0.25, 0.5,   ...normalY2,
-      ...sideE,   0.5, 0.0,   ...normalY2,
-      ...sideH,   0.5, 0.5,   ...normalY2,
+      ...sideD,   /*0.25, 0.5,*/   ...normalY1, // Bawah (DAE-DEH) Biru
+      ...sideA,   /*0.25, 0.0,*/   ...normalY1,
+      ...sideE,   /*0.5, 0.0, */  ...normalY1,
+      ...sideD,   /*0.25, 0.5,*/   ...normalY1,
+      ...sideE,   /*0.5, 0.0, */  ...normalY1,
+      ...sideH,   /*0.5, 0.5, */  ...normalY1,
       
-      ...sideE,   0.5, 0.5,   ...normalZ2, // Belakang (EFG-EGH) Kuning
-      ...sideF,   0.5, 0.0,   ...normalZ2,
-      ...sideG,   0.75, 0.0,   ...normalZ2,
-      ...sideE,   0.5, 0.5,   ...normalZ2,
-      ...sideG,   0.75, 0.0,   ...normalZ2,
-      ...sideH,   0.75, 0.5,   ...normalZ2,
+      ...sideE,   /*0.5, 0.5, */  ...normalZ1, // Belakang (EFG-EGH) Kuning
+      ...sideF,   /*0.5, 0.0, */  ...normalZ1,
+      ...sideG,   /*0.75, 0.0,*/   ...normalZ1,
+      ...sideE,   /*0.5, 0.5, */  ...normalZ1,
+      ...sideG,   /*0.75, 0.0,*/   ...normalZ1,
+      ...sideH,   /*0.75, 0.5,*/   ...normalZ1,
 
-      ...sideF,   0.0, 1.0,   ...normalX2, // Kiri (FEA-FAB) Cyan
-      ...sideE,   0.0, 0.5,   ...normalX2,
-      ...sideA,   0.25, 0.5,   ...normalX2,
-      ...sideF,   0.0, 1.0,   ...normalX2,
-      ...sideA,   0.25, 0.5,   ...normalX2,
-      ...sideB,   0.25, 1.0,   ...normalX2,
+      ...sideF,   /*0.0, 1.0, */  ...normalX1, // Kiri (FEA-FAB) Cyan
+      ...sideE,   /*0.0, 0.5, */  ...normalX1,
+      ...sideA,   /*0.25, 0.5,*/   ...normalX1,
+      ...sideF,   /*0.0, 1.0, */  ...normalX1,
+      ...sideA,   /*0.25, 0.5,*/   ...normalX1,
+      ...sideB,   /*0.25, 1.0,*/   ...normalX1,
 
-      ...sideG,   0.25, 1.0,   ...normalY1, // Atas (GFB-GBC) Magenta
-      ...sideF,   0.25, 0.5,   ...normalY1,
-      ...sideB,   0.5, 0.5,   ...normalY1,
-      ...sideG,   0.25, 1.0,   ...normalY1,
-      ...sideB,   0.5, 0.5,   ...normalY1,
-      ...sideC,   0.5, 1.0,   ...normalY1,
+      ...sideG,   /*0.25, 1.0,*/   ...normalY2, // Atas (GFB-GBC) Magenta
+      ...sideF,   /*0.25, 0.5,*/   ...normalY2,
+      ...sideB,   /*0.5, 0.5, */  ...normalY2,
+      ...sideG,   /*0.25, 1.0,*/   ...normalY2,
+      ...sideB,   /*0.5, 0.5, */  ...normalY2,
+      ...sideC,   /*0.5, 1.0, */  ...normalY2,
     ];
 
     var vertices = [];
@@ -141,24 +139,14 @@
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
     var vPosition = gl.getAttribLocation(program, 'vPosition');
-    var vTexCoord = gl.getAttribLocation(program, 'vTexCoord');
     var vNormal = gl.getAttribLocation(program, 'vNormal');
     gl.vertexAttribPointer(
       vPosition,  // variabel yang memegang posisi attribute di shader
       3,          // jumlah elemen per attribute
       gl.FLOAT,   // tipe data atribut
       gl.FALSE,
-      8 * Float32Array.BYTES_PER_ELEMENT, // ukuran byte tiap verteks 
+      6 * Float32Array.BYTES_PER_ELEMENT, // ukuran byte tiap verteks 
       0                                   // offset dari posisi elemen di array
-    );
-
-    gl.vertexAttribPointer(
-      vTexCoord, 
-      2, 
-      gl.FLOAT, 
-      gl.FALSE, 
-      8 * Float32Array.BYTES_PER_ELEMENT, 
-      3 * Float32Array.BYTES_PER_ELEMENT
     );
 
     gl.vertexAttribPointer(
@@ -166,13 +154,68 @@
       3, 
       gl.FLOAT, 
       gl.FALSE, 
-      8 * Float32Array.BYTES_PER_ELEMENT, 
-      5 * Float32Array.BYTES_PER_ELEMENT
+      6 * Float32Array.BYTES_PER_ELEMENT, 
+      3 * Float32Array.BYTES_PER_ELEMENT
+    );
+    gl.enableVertexAttribArray(vPosition);
+    gl.enableVertexAttribArray(vNormal);
+
+    var texCoords = [
+      0.0, 0.5, 
+      0.0, 0.0, 
+      0.25, 0.0,
+      0.0, 0.5, 
+      0.25, 0.0,
+      0.25, 0.5,
+      
+      0.25, 0.5,
+      0.25, 0.0,
+      0.5, 0.0, 
+      0.25, 0.5,
+      0.5, 0.0, 
+      0.5, 0.5, 
+      
+      0.5, 0.5, 
+      0.5, 0.0, 
+      0.75, 0.0,
+      0.5, 0.5, 
+      0.75, 0.0,
+      0.75, 0.5,
+      
+      0.0, 1.0, 
+      0.0, 0.5, 
+      0.25, 0.5,
+      0.0, 1.0, 
+      0.25, 0.5,
+      0.25, 1.0,
+      
+      0.25, 1.0,
+      0.25, 0.5,
+      0.5, 0.5, 
+      0.25, 1.0,
+      0.5, 0.5, 
+      0.5, 1.0, 
+    ]
+
+    for(var i =0;i < 12;i++)
+      texCoords.push(0, 0)
+
+    console.log(texCoords);
+
+    var texBufferObject = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, texBufferObject);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texCoords), gl.STATIC_DRAW);
+    var vTexCoord = gl.getAttribLocation(program, 'vTexCoord');
+    gl.vertexAttribPointer(
+      vTexCoord, 
+      2, 
+      gl.FLOAT, 
+      gl.FALSE, 
+      2 * Float32Array.BYTES_PER_ELEMENT, 
+      0
     );
 
-    gl.enableVertexAttribArray(vPosition);
     gl.enableVertexAttribArray(vTexCoord);
-    gl.enableVertexAttribArray(vNormal);
 
     var thetaValue = 0.02;
     var theta = [0.0, 0.0, 0.0];
@@ -208,8 +251,8 @@
     var vm = glMatrix.mat4.create();
     var pm = glMatrix.mat4.create();
     var mmName = glMatrix.mat4.create();
-    var lightColor = [0.5, 0.5, 0.5];
-    var lightPosition = [1., 2., 1.7];
+    var lightColor = glMatrix.vec3.fromValues(1.0, 1.0, 1.0);
+    var lightPosition = glMatrix.vec3.fromValues(0, 0, 0);
     var ambientColor = glMatrix.vec3.fromValues(0.17, 0.0, 0.118);
 
     gl.uniform3fv(lightColorLoc, lightColor);
@@ -217,7 +260,7 @@
     gl.uniform3fv(ambientColorLoc, ambientColor);
 
     glMatrix.mat4.lookAt(vm,
-      glMatrix.vec3.fromValues(0.0, 0.0, 0),    // posisi kamera
+      glMatrix.vec3.fromValues(0.0, 0.0, -0.3),    // posisi kamera
       glMatrix.vec3.fromValues(0.0, 0.0, -2.0),  // titik yang dilihat; pusat kubus akan kita pindah ke z=-2
       glMatrix.vec3.fromValues(0.0, 1.0, 0.0)   // arah atas dari kamera
     );
@@ -284,9 +327,12 @@
     }
 
     function render() {
+      // Bersihkan buffer canvas
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); 
+
       // theta[axis] += glMatrix.glMatrix.toRadian(0.5);
       var mm = glMatrix.mat4.create();
-      glMatrix.mat4.translate(mm, mm, [0.0, 0.0, -2.0]);
+      glMatrix.mat4.translate(mm, mm, [0.0, 0.0, -1.5]);
       glMatrix.mat4.rotateX(mm, mm, theta[xAxis]);
       glMatrix.mat4.rotateY(mm, mm, theta[yAxis]);
       // glMatrix.mat4.rotateZ(mm, mm, thetaValue);
@@ -296,9 +342,6 @@
       var nm = glMatrix.mat3.create();
       glMatrix.mat3.normalFromMat4(nm, mm);
       gl.uniformMatrix3fv(nmLoc, false, nm);
-
-      // Bersihkan buffer canvas
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); 
 
       gl.drawArrays(gl.TRIANGLES, 0, 30);
 
@@ -326,8 +369,9 @@
       glMatrix.mat3.normalFromMat4(nm, mm);
       gl.uniformMatrix3fv(nmLoc, false, nm);
       glMatrix.vec3.transformMat4(lightPosition, [0.0, 0.0, 0.0], mm);
-
       gl.uniform3fv(lightPositionLoc, lightPosition);
+      console.log(lightPosition)
+
       gl.drawArrays(gl.TRIANGLE_STRIP, 30, 12);
 
       for(var v = 0;v < namePoints.length; v++) {

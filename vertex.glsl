@@ -18,8 +18,9 @@ void main() {
   gl_Position = projection * view * model * vec4(vPosition, 1.0);
   // urutan perkaliannya harus = projection x view x model (transformasi)
 
+  fNormal = normalize(normalMatrix * vNormal);
   fTexCoord = vTexCoord;
   fPosition = vec3(model * vec4(vPosition, 1.0));
-  fNormal = normalMatrix * vNormal;
+  
 }
  
