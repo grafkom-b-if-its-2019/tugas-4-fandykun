@@ -12,7 +12,7 @@
     var program = glUtils.createProgram(gl, vertexShader, fragmentShader);
     gl.useProgram(program);
 
-    var nameColor = [1.0, 0.0, 1.0];
+    var nameNormal = [1.0, 0.0, 0.0];
     var cubeColor = [1.0, 0.0, 1.0];
 
     var namePoints = [
@@ -30,18 +30,18 @@
 
     var uvDummy = [0.0, 0.0];
     var nameVertices = [
-      0.55, 0.4, 0, ...uvDummy, ...nameColor,
-      0.47, 0.28, 0, ...uvDummy, ...nameColor,
-      0.1, 0.4, 0, ...uvDummy, ...nameColor,
-      0.2, 0.28, 0, ...uvDummy, ...nameColor,
-      0.1, -0.4, 0, ...uvDummy, ...nameColor,
-      0.2, -0.4, 0, ...uvDummy, ...nameColor,
-      0.2, -0.4, 0, ...uvDummy, ...nameColor,
-      0.2, 0.1, 0, ...uvDummy, ...nameColor,
-      0.2, 0.1, 0, ...uvDummy, ...nameColor,
-      0.55, 0.1, 0, ...uvDummy, ...nameColor,
-      0.2, -0.02, 0, ...uvDummy, ...nameColor,
-      0.55, -0.02, 0, ...uvDummy, ...nameColor,
+      0.55, 0.4, 0, ...uvDummy, ...nameNormal,
+      0.47, 0.28, 0, ...uvDummy, ...nameNormal,
+      0.1, 0.4, 0, ...uvDummy, ...nameNormal,
+      0.2, 0.28, 0, ...uvDummy, ...nameNormal,
+      0.1, -0.4, 0, ...uvDummy, ...nameNormal,
+      0.2, -0.4, 0, ...uvDummy, ...nameNormal,
+      0.2, -0.4, 0, ...uvDummy, ...nameNormal,
+      0.2, 0.1, 0, ...uvDummy, ...nameNormal,
+      0.2, 0.1, 0, ...uvDummy, ...nameNormal,
+      0.55, 0.1, 0, ...uvDummy, ...nameNormal,
+      0.2, -0.02, 0, ...uvDummy, ...nameNormal,
+      0.55, -0.02, 0, ...uvDummy, ...nameNormal,
     ]
 
     // Definisi verteks dan buffer
@@ -78,49 +78,56 @@
 
     console.log(cubePoints);
 
+    var normalZ1 = [0.0, 0.0, 1.0];
+    var normalZ2 = [0.0, 0.0, -1.0];
+    var normalY1 = [0.0, 1.0, 0.0];
+    var normalY2 = [0.0, -1.0, 0.0];
+    var normalX1 = [1.0, 0.0, 0.0];
+    var normalX2 = [-1.0, 0.0, 0.0];
+
     var cubeVertices = [
-      // x, y, z                r, g, b
-        // ...sideB,   0.0, 1.0,   ...cubeColor,  // Depan (BAD-BDC) Merah
-        // ...sideA,   0.0, 0.0,   ...cubeColor,
-        // ...sideD,   1.0, 0.0,   ...cubeColor,
-        // ...sideB,   0.0, 1.0,   ...cubeColor,
-        // ...sideD,   1.0, 0.0,   ...cubeColor,
-        // ...sideC,   1.0, 1.0,   ...cubeColor,
+      // // x, y, z                  normal
+      //   ...sideB,   0.0, 1.0,   ...normalZ1,  // Depan (BAD-BDC) Merah
+      //   ...sideA,   0.0, 0.0,   ...normalZ1,
+      //   ...sideD,   1.0, 0.0,   ...normalZ1,
+      //   ...sideB,   0.0, 1.0,   ...normalZ1,
+      //   ...sideD,   1.0, 0.0,   ...normalZ1,
+      //   ...sideC,   1.0, 1.0,   ...normalZ1,
 
-      ...sideC,   0.0, 1.0,   ...cubeColor, // Kanan (CDH-CHG) Hijau
-      ...sideD,   0.0, 0.0,   ...cubeColor,
-      ...sideH,   1.0, 0.0,   ...cubeColor,
-      ...sideC,   0.0, 1.0,   ...cubeColor,
-      ...sideH,   1.0, 0.0,   ...cubeColor,
-      ...sideG,   1.0, 1.0,   ...cubeColor,
+      ...sideC,   0.0, 1.0,   ...normalX1, // Kanan (CDH-CHG) Hijau
+      ...sideD,   0.0, 0.0,   ...normalX1,
+      ...sideH,   1.0, 0.0,   ...normalX1,
+      ...sideC,   0.0, 1.0,   ...normalX1,
+      ...sideH,   1.0, 0.0,   ...normalX1,
+      ...sideG,   1.0, 1.0,   ...normalX1,
 
-      ...sideD,   0.0, 1.0,   ...cubeColor, // Bawah (DAE-DEH) Biru
-      ...sideA,   0.0, 0.0,   ...cubeColor,
-      ...sideE,   1.0, 0.0,   ...cubeColor,
-      ...sideD,   0.0, 1.0,   ...cubeColor,
-      ...sideE,   1.0, 0.0,   ...cubeColor,
-      ...sideH,   1.0, 1.0,   ...cubeColor,
+      ...sideD,   0.0, 1.0,   ...normalY2, // Bawah (DAE-DEH) Biru
+      ...sideA,   0.0, 0.0,   ...normalY2,
+      ...sideE,   1.0, 0.0,   ...normalY2,
+      ...sideD,   0.0, 1.0,   ...normalY2,
+      ...sideE,   1.0, 0.0,   ...normalY2,
+      ...sideH,   1.0, 1.0,   ...normalY2,
       
-      ...sideE,   0.0, 1.0,   ...cubeColor, // Belakang (EFG-EGH) Kuning
-      ...sideF,   0.0, 0.0,   ...cubeColor,
-      ...sideG,   1.0, 0.0,   ...cubeColor,
-      ...sideE,   0.0, 1.0,   ...cubeColor,
-      ...sideG,   1.0, 0.0,   ...cubeColor,
-      ...sideH,   1.0, 1.0,   ...cubeColor,
+      ...sideE,   0.0, 1.0,   ...normalZ2, // Belakang (EFG-EGH) Kuning
+      ...sideF,   0.0, 0.0,   ...normalZ2,
+      ...sideG,   1.0, 0.0,   ...normalZ2,
+      ...sideE,   0.0, 1.0,   ...normalZ2,
+      ...sideG,   1.0, 0.0,   ...normalZ2,
+      ...sideH,   1.0, 1.0,   ...normalZ2,
 
-      ...sideF,   0.0, 1.0,   ...cubeColor, // Kiri (FEA-FAB) Cyan
-      ...sideE,   0.0, 0.0,   ...cubeColor,
-      ...sideA,   1.0, 0.0,   ...cubeColor,
-      ...sideF,   0.0, 1.0,   ...cubeColor,
-      ...sideA,   1.0, 0.0,   ...cubeColor,
-      ...sideB,   1.0, 1.0,   ...cubeColor,
+      ...sideF,   0.0, 1.0,   ...normalX2, // Kiri (FEA-FAB) Cyan
+      ...sideE,   0.0, 0.0,   ...normalX2,
+      ...sideA,   1.0, 0.0,   ...normalX2,
+      ...sideF,   0.0, 1.0,   ...normalX2,
+      ...sideA,   1.0, 0.0,   ...normalX2,
+      ...sideB,   1.0, 1.0,   ...normalX2,
 
-      ...sideG,   0.0, 1.0,   ...cubeColor, // Atas (GFB-GBC) Magenta
-      ...sideF,   0.0, 0.0,   ...cubeColor,
-      ...sideB,   1.0, 0.0,   ...cubeColor,
-      ...sideG,   0.0, 1.0,   ...cubeColor,
-      ...sideB,   1.0, 0.0,   ...cubeColor,
-      ...sideC,   1.0, 1.0,   ...cubeColor,
+      ...sideG,   0.0, 1.0,   ...normalY1, // Atas (GFB-GBC) Magenta
+      ...sideF,   0.0, 0.0,   ...normalY1,
+      ...sideB,   1.0, 0.0,   ...normalY1,
+      ...sideG,   0.0, 1.0,   ...normalY1,
+      ...sideB,   1.0, 0.0,   ...normalY1,
+      ...sideC,   1.0, 1.0,   ...normalY1,
     ];
 
     var vertices = [];
@@ -316,10 +323,10 @@
       glMatrix.mat4.scale(mm, mm, [scale, scale, scale]);      
       gl.uniformMatrix4fv(mmLoc, false, mm);
 
-      // glMatrix.mat3.normalFromMat4(nm, mm);
-      // gl.uniformMatrix3fv(nmLoc, false, nm);
-      // glMatrix.vec3.transformMat4(lightPosition, [0.0, 0.0, 0.0], mm);
-      // gl.uniform3fv(lightPositionLoc, lightPosition);
+      glMatrix.mat3.normalFromMat4(nm, mm);
+      gl.uniformMatrix3fv(nmLoc, false, nm);
+      glMatrix.vec3.transformMat4(lightPosition, [0.0, 0.0, 0.0], mm);
+      gl.uniform3fv(lightPositionLoc, lightPosition);
       gl.drawArrays(gl.TRIANGLE_STRIP, 30, 12);
 
       for(var v = 0;v < namePoints.length; v++) {

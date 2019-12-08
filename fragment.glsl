@@ -14,11 +14,27 @@ void main() {
 
   vec4 tex0 = texture2D(sampler0, fTexCoord); // Hasil akhirnya adalah warna (RGBA)
 
-  vec3 normal = normalize(fNormal);
-  vec3 lightDirection = lightPosition - fPosition;
-  float lightIntensity = max(dot(lightDirection, normal), 0.0);
+  vec3 lightDirection = normalize(lightPosition - fPosition);
+  float lightIntensity = max(dot(fNormal, lightDirection), 0.0);
+
+  float specularPower = 80.0;
+  float specular = 0.0;
+
+  if(lightIntensity > 0.0) {
+      // viewing vector
+    vec3 viewVec = vec3(0,0,1.0);
+
+    // reflective vector
+    vec3 reflectVec = reflect(-lightDirection, fNormal);
+
+    // determine the specularFactor based on the dot product of viewing and reflective,
+    // taking at least a minimum of 0.0
+    float specularFactor = max(dot(reflectVec, viewVec), 0.0);
+    specular = pow(specularFactor, specularPower);
+  }
+
   vec3 diffuse = lightColor * tex0.rgb * lightIntensity;
   vec3 ambient = ambientColor * tex0.rgb;
 
-  gl_FragColor = vec4(diffuse + ambient, 1.0);
+  gl_FragColor = vec4(diffuse + ambient + specular, 1.0);
 }
