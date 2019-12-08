@@ -94,40 +94,40 @@
       //   ...sideD,   1.0, 0.0,   ...normalZ1,
       //   ...sideC,   1.0, 1.0,   ...normalZ1,
 
-      ...sideC,   0.0, 1.0,   ...normalX1, // Kanan (CDH-CHG) Hijau
+      ...sideC,   0.0, 0.5,   ...normalX1, // Kanan (CDH-CHG) Hijau
       ...sideD,   0.0, 0.0,   ...normalX1,
-      ...sideH,   1.0, 0.0,   ...normalX1,
-      ...sideC,   0.0, 1.0,   ...normalX1,
-      ...sideH,   1.0, 0.0,   ...normalX1,
-      ...sideG,   1.0, 1.0,   ...normalX1,
+      ...sideH,   0.25, 0.0,   ...normalX1,
+      ...sideC,   0.0, 0.5,   ...normalX1,
+      ...sideH,   0.25, 0.0,   ...normalX1,
+      ...sideG,   0.25, 0.5,   ...normalX1,
 
-      ...sideD,   0.0, 1.0,   ...normalY2, // Bawah (DAE-DEH) Biru
-      ...sideA,   0.0, 0.0,   ...normalY2,
-      ...sideE,   1.0, 0.0,   ...normalY2,
-      ...sideD,   0.0, 1.0,   ...normalY2,
-      ...sideE,   1.0, 0.0,   ...normalY2,
-      ...sideH,   1.0, 1.0,   ...normalY2,
+      ...sideD,   0.25, 0.5,   ...normalY2, // Bawah (DAE-DEH) Biru
+      ...sideA,   0.25, 0.0,   ...normalY2,
+      ...sideE,   0.5, 0.0,   ...normalY2,
+      ...sideD,   0.25, 0.5,   ...normalY2,
+      ...sideE,   0.5, 0.0,   ...normalY2,
+      ...sideH,   0.5, 0.5,   ...normalY2,
       
-      ...sideE,   0.0, 1.0,   ...normalZ2, // Belakang (EFG-EGH) Kuning
-      ...sideF,   0.0, 0.0,   ...normalZ2,
-      ...sideG,   1.0, 0.0,   ...normalZ2,
-      ...sideE,   0.0, 1.0,   ...normalZ2,
-      ...sideG,   1.0, 0.0,   ...normalZ2,
-      ...sideH,   1.0, 1.0,   ...normalZ2,
+      ...sideE,   0.5, 0.5,   ...normalZ2, // Belakang (EFG-EGH) Kuning
+      ...sideF,   0.5, 0.0,   ...normalZ2,
+      ...sideG,   0.75, 0.0,   ...normalZ2,
+      ...sideE,   0.5, 0.5,   ...normalZ2,
+      ...sideG,   0.75, 0.0,   ...normalZ2,
+      ...sideH,   0.75, 0.5,   ...normalZ2,
 
       ...sideF,   0.0, 1.0,   ...normalX2, // Kiri (FEA-FAB) Cyan
-      ...sideE,   0.0, 0.0,   ...normalX2,
-      ...sideA,   1.0, 0.0,   ...normalX2,
+      ...sideE,   0.0, 0.5,   ...normalX2,
+      ...sideA,   0.25, 0.5,   ...normalX2,
       ...sideF,   0.0, 1.0,   ...normalX2,
-      ...sideA,   1.0, 0.0,   ...normalX2,
-      ...sideB,   1.0, 1.0,   ...normalX2,
+      ...sideA,   0.25, 0.5,   ...normalX2,
+      ...sideB,   0.25, 1.0,   ...normalX2,
 
-      ...sideG,   0.0, 1.0,   ...normalY1, // Atas (GFB-GBC) Magenta
-      ...sideF,   0.0, 0.0,   ...normalY1,
-      ...sideB,   1.0, 0.0,   ...normalY1,
-      ...sideG,   0.0, 1.0,   ...normalY1,
-      ...sideB,   1.0, 0.0,   ...normalY1,
-      ...sideC,   1.0, 1.0,   ...normalY1,
+      ...sideG,   0.25, 1.0,   ...normalY1, // Atas (GFB-GBC) Magenta
+      ...sideF,   0.25, 0.5,   ...normalY1,
+      ...sideB,   0.5, 0.5,   ...normalY1,
+      ...sideG,   0.25, 1.0,   ...normalY1,
+      ...sideB,   0.5, 0.5,   ...normalY1,
+      ...sideC,   0.5, 1.0,   ...normalY1,
     ];
 
     var vertices = [];
@@ -326,6 +326,7 @@
       glMatrix.mat3.normalFromMat4(nm, mm);
       gl.uniformMatrix3fv(nmLoc, false, nm);
       glMatrix.vec3.transformMat4(lightPosition, [0.0, 0.0, 0.0], mm);
+
       gl.uniform3fv(lightPositionLoc, lightPosition);
       gl.drawArrays(gl.TRIANGLE_STRIP, 30, 12);
 
@@ -410,7 +411,7 @@
     });
 
     function initTexture(callback, args) {
-      var imageSource = 'images/txStainglass.bmp';
+      var imageSource = 'images/selfie-01.jpg';
       var promise = new Promise(function(resolve, reject) {
         var image = new Image();
         if (!image) {
